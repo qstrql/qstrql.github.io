@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>push_swap · Mathis Jouot</title>
+  <meta name="description" content="push_swap (42) with a live visualiser running the original C code compiled to WebAssembly.">
+  <base target="_blank">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+  <p><a href="../" target="_self">← Back</a></p>
+  <h1>push_swap</h1>
+  <p class="tags">C · algorithms · 42 · <a href="https://github.com/qstrql/push_swap">source</a></p>
+
+  <p>
+    Sort a list of integers using two stacks, <b>A</b> and <b>B</b>, and only these operations:
+    swap the top two (<code>sa sb ss</code>), push the top element across (<code>pa pb</code>),
+    rotate up (<code>ra rb rr</code>) or rotate down (<code>rra rrb rrr</code>).
+    The goal is the shortest sequence of operations.
+  </p>
+
+  <section>
+    <h2>Live visualiser</h2>
+    <p class="muted">This runs my actual C code, compiled to WebAssembly with Emscripten. The page only replays the operations it prints.</p>
+    <div class="controls">
+      <input id="input" type="text" aria-label="Numbers to sort" placeholder="3 1 2 …">
+      <button id="run">Run</button>
+    </div>
+    <div class="controls">
+      <span class="muted">Random:</span>
+      <button data-n="5">5</button>
+      <button data-n="100">100</button>
+      <button data-n="500">500</button>
+      <button id="play">Play</button>
+      <button id="step">Step</button>
+      <label>Speed <input id="speed" type="range" min="0" max="10" value="5"></label>
+    </div>
+    <canvas id="canvas" aria-label="Stacks A (left) and B (right)"></canvas>
+    <p><span id="count"></span> <strong id="status"></strong></p>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <!-- TODO: explain your algorithm: normalisation, the sort strategy, small-case handling. -->
+    <p>
+      The input is checked (integers only, no duplicates, no overflow) and normalised to ranks 0…n-1.
+      Small inputs use hard-coded sorts; larger ones are sorted by the main strategy described in the
+      <a href="https://github.com/qstrql/push_swap">README</a>.
+    </p>
+    <p>Typical results: about <b>590</b> operations for 100 numbers and <b>5200</b> for 500.</p>
+  </section>
+</main>
+<script type="module" src="push_swap/visualiser.js"></script>
+</body>
+</html>
